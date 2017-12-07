@@ -1,5 +1,5 @@
 //
-//  AddOrEditContactViewController.swift
+//  contactDetailViewController.swift
 //  ContactsSwift
 //
 //  Created by Murari Varma on 07/12/17.
@@ -8,37 +8,37 @@
 
 import UIKit
 
-class AddOrEditContactViewController: UIViewController {
-
+class contactDetailViewController: UIViewController {
+    
+    
+    var contact: Contact? = nil
+    var indexPath: IndexPath? = nil
+    var isDeleted = false
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        nameLabel.text = contact?.name
+        phoneNumberLabel.text = contact?.phoneNumber
         // Do any additional setup after loading the view.
     }
 
+    @IBAction func deleteContact(_ sender: UIButton) {
+        isDeleted = true
+        performSegue(withIdentifier: "unwindDeleteContactSegue", sender: self)
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var displayLabel: UILabel!
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var phoneNumberTextField: UITextField!
-    
-    
+
+    /*
     // MARK: - Navigation
-    
-    @IBAction func saveAndClose(_ sender: UIButton) {
-        performSegue(withIdentifier: "unwindToContactListSegue", sender: self)
-    }
-    
-    @IBAction func close(_ sender: UIButton) {
-        nameTextField.text = nil
-        phoneNumberTextField.text = nil
-        performSegue(withIdentifier: "unwindToContactListSegue", sender: self)
-    }
-    
-/*
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
