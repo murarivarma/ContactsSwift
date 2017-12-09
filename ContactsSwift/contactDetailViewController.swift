@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
 class contactDetailViewController: UIViewController {
     
     
-    var contact: Contact? = nil
+    var contact: NSManagedObject? = nil
     var indexPath: IndexPath? = nil
     var isDeleted = false
     
@@ -21,8 +22,8 @@ class contactDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nameLabel.text = contact?.name
-        phoneNumberLabel.text = contact?.phoneNumber
+        nameLabel.text = contact?.value(forKey:"name") as? String
+        phoneNumberLabel.text = contact?.value(forKey:"phoneNumber") as? String
         // Do any additional setup after loading the view.
     }
 

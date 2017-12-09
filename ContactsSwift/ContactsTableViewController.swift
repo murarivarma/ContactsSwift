@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
+@available(iOS 10.0, *)
 class ContactsTableViewController: UITableViewController {
     
-    var contacts: [Contact] = []
+    var contacts: [NSManagedObject] = []
     /*
      [
      ["name": "murari varma", "phoneNumber": "12345-12345"]
@@ -19,6 +21,9 @@ class ContactsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchData()
+        tableView.reloadData()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -32,15 +37,73 @@ class ContactsTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // Mark: - Data Source
+    
+    func fetchData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedObjectContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Contact")
+        do {
+            contacts = try managedObjectContext.fetch(fetchRequest) as! [NSManagedObject]
+        }
+        catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func saveData(name: String, phoneNumber: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedObjectContext = appDelegate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "Contact", in: managedObjectContext) else {return}
+        let contact = NSManagedObject(entity: entity, insertInto: managedObjectContext)
+        contact.setValue(name, forKey: "name")
+        contact.setValue(phoneNumber, forKey: "phoneNumber")
+        
+        do {
+            try managedObjectContext.save()
+            self.contacts.append(contact)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        
+    }
+    
+    func updateData(indexPath: IndexPath, name: String, phoneNumber: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedObjectContext = appDelegate.persistentContainer.viewContext
+        let contact = contacts[indexPath.row]
+        contact.setValue(name, forKey: "name")
+        contact.setValue(phoneNumber, forKey: "phoneNumber")
+        
+        do {
+            try managedObjectContext.save()
+            self.contacts.remove(at: indexPath.row)
+            self.contacts.insert(contact, at: indexPath.row)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func deleteData(contact: NSManagedObject, at indexPath: IndexPath) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        let managedObjectContext = appDelegate.persistentContainer.viewContext
+        managedObjectContext.delete(contact)
+        do {
+            try managedObjectContext.save()
+            self.contacts.remove(at: indexPath.row)
+        }
+        catch let error as NSError {
+            print("Could not Delete. \(error), \(error.userInfo)")
+        }
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return contacts.count
     }
     
@@ -48,9 +111,8 @@ class ContactsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
         
-        // Configure the cell...
-        cell.textLabel?.text = contacts[indexPath.row].name
-        cell.detailTextLabel?.text = contacts[indexPath.row].phoneNumber
+        cell.textLabel?.text = (contacts[indexPath.row].value(forKey: "name") as! String)
+        cell.detailTextLabel?.text = (contacts[indexPath.row].value(forKey: "phoneNumber") as! String)
         return cell
     }
     
@@ -60,23 +122,27 @@ class ContactsTableViewController: UITableViewController {
         
         if let viewController = segue.source as? AddOrEditContactViewController {
             
-            if (!viewController.phoneNumberTextField.text!.isEmpty &&
+            if (!viewController.nameTextField.text!.isEmpty &&
                 !viewController.phoneNumberTextField.text!.isEmpty){
-                let contact = Contact(name: viewController.nameTextField.text!,
-                                      phoneNumber: viewController.phoneNumberTextField.text!)
+                
+                let name = viewController.nameTextField.text!
+                let phone = viewController.phoneNumberTextField.text!
+                
                 
                 if let indexPath = viewController.indexPathForContact {
-                    contacts[indexPath.row] = contact
+                    // update data
+                    updateData(indexPath: indexPath, name: name, phoneNumber: phone)
                 } else {
-                    contacts.append(contact)
+                    // save data
+                    saveData(name: name, phoneNumber: phone)
                 }
                 tableView.reloadData()
             }
         } else if let viewcontroller = segue.source as? contactDetailViewController {
             if viewcontroller.isDeleted {
                 guard let indexPath: IndexPath = viewcontroller.indexPath else {return}
-                print("Inde: \(indexPath.row)")
-                contacts.remove(at: indexPath.row)
+                let contact = contacts[indexPath.row]
+                deleteData(contact: contact, at: indexPath)
                 tableView.reloadData()
             }
         }
@@ -90,51 +156,5 @@ class ContactsTableViewController: UITableViewController {
             viewController.indexPath = selectedCellIndex
         }
     }
-    
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

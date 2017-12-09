@@ -14,7 +14,6 @@
 		1EF547E71FD905F000B040F8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EF547E51FD905F000B040F8 /* LaunchScreen.storyboard */; };
 		1EF547EF1FD90A2500B040F8 /* ContactsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF547EE1FD90A2500B040F8 /* ContactsTableViewController.swift */; };
 		1EF547F11FD90A5000B040F8 /* AddOrEditContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF547F01FD90A5000B040F8 /* AddOrEditContactViewController.swift */; };
-		1EF547F31FD93C2000B040F8 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF547F21FD93C2000B040F8 /* Contact.swift */; };
 		1EF547F51FD9447000B040F8 /* contactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EF547F41FD9447000B040F8 /* contactDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		1EF547E81FD905F000B040F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EF547EE1FD90A2500B040F8 /* ContactsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableViewController.swift; sourceTree = "<group>"; };
 		1EF547F01FD90A5000B040F8 /* AddOrEditContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOrEditContactViewController.swift; sourceTree = "<group>"; };
-		1EF547F21FD93C2000B040F8 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		1EF547F41FD9447000B040F8 /* contactDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,7 +63,6 @@
 				1EF547D91FD905F000B040F8 /* AppDelegate.swift */,
 				1EF547F41FD9447000B040F8 /* contactDetailViewController.swift */,
 				1EF547DD1FD905F000B040F8 /* Main.storyboard */,
-				1EF547F21FD93C2000B040F8 /* Contact.swift */,
 				1EF547EE1FD90A2500B040F8 /* ContactsTableViewController.swift */,
 				1EF547F01FD90A5000B040F8 /* AddOrEditContactViewController.swift */,
 				1EF547E31FD905F000B040F8 /* Assets.xcassets */,
@@ -150,7 +147,6 @@
 			files = (
 				1EF547E21FD905F000B040F8 /* ContactsSwift.xcdatamodeld in Sources */,
 				1EF547DA1FD905F000B040F8 /* AppDelegate.swift in Sources */,
-				1EF547F31FD93C2000B040F8 /* Contact.swift in Sources */,
 				1EF547F11FD90A5000B040F8 /* AddOrEditContactViewController.swift in Sources */,
 				1EF547F51FD9447000B040F8 /* contactDetailViewController.swift in Sources */,
 				1EF547EF1FD90A2500B040F8 /* ContactsTableViewController.swift in Sources */,

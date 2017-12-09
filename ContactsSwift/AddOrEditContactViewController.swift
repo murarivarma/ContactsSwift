@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AddOrEditContactViewController: UIViewController {
     
@@ -14,7 +15,7 @@ class AddOrEditContactViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     var titleText = "Add Contact"
-    var contact:Contact? = nil
+    var contact:NSManagedObject? = nil
     var indexPathForContact: IndexPath? = nil
     
     override func viewDidLoad() {
@@ -22,8 +23,8 @@ class AddOrEditContactViewController: UIViewController {
         displayLabel.text = titleText
         
         if contact != nil {
-            nameTextField.text = contact!.name
-            phoneNumberTextField.text = contact!.phoneNumber
+            nameTextField.text = contact!.value(forKey: "name") as? String
+            phoneNumberTextField.text = contact!.value(forKey: "phoneNumber") as? String
         }
     }
     
