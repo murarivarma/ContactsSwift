@@ -64,7 +64,12 @@ class ContactsTableViewController: UITableViewController {
                 !viewController.phoneNumberTextField.text!.isEmpty){
                 let contact = Contact(name: viewController.nameTextField.text!,
                                       phoneNumber: viewController.phoneNumberTextField.text!)
-                contacts.append(contact)
+                
+                if let indexPath = viewController.indexPathForContact {
+                    contacts[indexPath.row] = contact
+                } else {
+                    contacts.append(contact)
+                }
                 tableView.reloadData()
             }
         } else if let viewcontroller = segue.source as? contactDetailViewController {

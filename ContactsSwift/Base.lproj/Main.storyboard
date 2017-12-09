@@ -112,12 +112,29 @@
                                     <action selector="deleteContact:" destination="A46-QF-xXy" eventType="touchUpInside" id="1TV-Cs-kcx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9EQ-ap-utP">
+                                <rect key="frame" x="209" y="488" width="150" height="70"/>
+                                <color key="backgroundColor" red="1" green="0.36068455249999998" blue="0.33899396009999999" alpha="0.79807898119999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="IYH-yP-YjO"/>
+                                    <constraint firstAttribute="width" constant="150" id="aE0-IC-5Os"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Edit">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="F1X-ty-nqa" kind="presentation" identifier="editContactSegue" id="pS4-CI-ak9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cll-Th-NSH" firstAttribute="trailing" secondItem="9EQ-ap-utP" secondAttribute="trailing" constant="16" id="2SS-2t-dxR"/>
                             <constraint firstItem="cll-Th-NSH" firstAttribute="trailing" secondItem="h51-x9-hg5" secondAttribute="trailing" constant="15" id="89C-J1-Uks"/>
                             <constraint firstItem="3p3-95-70q" firstAttribute="leading" secondItem="cll-Th-NSH" secondAttribute="leading" constant="10" id="KLy-Nn-7EA"/>
                             <constraint firstItem="cll-Th-NSH" firstAttribute="bottom" secondItem="h51-x9-hg5" secondAttribute="bottom" constant="15" id="ZHj-7L-vnO"/>
+                            <constraint firstItem="h51-x9-hg5" firstAttribute="top" secondItem="9EQ-ap-utP" secondAttribute="bottom" constant="24" id="fdj-bO-snA"/>
                             <constraint firstItem="3p3-95-70q" firstAttribute="top" secondItem="cll-Th-NSH" secondAttribute="top" constant="50" id="lkb-kD-4ik"/>
                             <constraint firstItem="cll-Th-NSH" firstAttribute="trailing" secondItem="3p3-95-70q" secondAttribute="trailing" constant="10" id="nSp-t6-okt"/>
                         </constraints>
@@ -215,7 +232,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A6i-mJ-U0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="l5i-qX-lBd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1354" y="-174"/>
+            <point key="canvasLocation" x="2404" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0D6-dA-7pm">
@@ -236,4 +253,7 @@
             <point key="canvasLocation" x="-324" y="152"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="pS4-CI-ak9"/>
+    </inferredMetricsTieBreakers>
 </document>

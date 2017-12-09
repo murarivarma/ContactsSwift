@@ -9,22 +9,23 @@
 import UIKit
 
 class AddOrEditContactViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBOutlet weak var displayLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
+    var titleText = "Add Contact"
+    var contact:Contact? = nil
+    var indexPathForContact: IndexPath? = nil
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        displayLabel.text = titleText
+        
+        if contact != nil {
+            nameTextField.text = contact!.name
+            phoneNumberTextField.text = contact!.phoneNumber
+        }
+    }
     
     // MARK: - Navigation
     
@@ -45,5 +46,10 @@ class AddOrEditContactViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 
 }
